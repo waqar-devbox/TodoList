@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :ensure_login, only: [:new, :create]
+  
   def new
   end
 
@@ -16,7 +18,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-  	session.destroy(:user_id)
+  	# session.destroy(:user_id)
+  	reset_session
   	redirect_to login_path , notice: "successful logout"
   end
 end
